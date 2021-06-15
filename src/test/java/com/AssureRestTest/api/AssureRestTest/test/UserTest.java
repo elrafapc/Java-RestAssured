@@ -3,10 +3,7 @@ package com.AssureRestTest.api.AssureRestTest.test;
 import com.AssureRestTest.api.AssureRestTest.dom.User;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.hamcrest.Condition;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
@@ -14,7 +11,6 @@ import org.springframework.test.context.event.annotation.BeforeTestClass;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class UserTest {
@@ -41,7 +37,7 @@ class UserTest {
 
     @Test
     public void POSTAddUser(){
-        User user = new User("Rafael","Eng Test");
+        User user = new User("Rafael","Eng Test","mail@mail.com");
 
         given().
             contentType(ContentType.JSON).
@@ -52,5 +48,4 @@ class UserTest {
             statusCode(HttpStatus.SC_CREATED).
             body("name",is("Rafael"));
     }
-
 }
