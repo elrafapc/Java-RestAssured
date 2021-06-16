@@ -7,16 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 class UserTest extends BaseTest {
 
     private static final String USER_ENDPOINT = "/users";
+    private static final String SHOW_USER_ENDPOINT = "/users/{userId}";
 
     @Test
-    public void     getListDataUser() {
+    public void     testGetListDataUser() {
         given().
             params("page","2").
         when().
@@ -29,7 +30,7 @@ class UserTest extends BaseTest {
     }
 
     @Test
-    public void postAddUser(){
+    public void testPostAddUser(){
         User user = new User("Rafael","Eng Test","mail@mail.com");
 
         given().
@@ -59,6 +60,25 @@ class UserTest extends BaseTest {
                 "data.findAll{ it.avatar.startsWith('https://reqres.in')}.size()", is(expectedPerPage)
             );
     }
+
+    @Test
+    public void testShowASpecificUser(){
+
+        User user = given().
+            pathParam("userId", 2).
+        when().
+            get(basePath + SHOW_USER_ENDPOINT).
+        then().
+            statusCode(HttpStatus.SC_OK).
+        extract().
+            body().jsonPath().getObject("data",User.class);
+
+        assertThat(user.getEmail(),containsString("@reqres.in"));
+        assertThat(user.getName(),containsString("Janet"));
+        assertThat(user.getLastName(),containsString("Weaver"));
+    }
+
+
 
     private int getExpectedPerPage(int page) {
         int expectedPerPage = given().

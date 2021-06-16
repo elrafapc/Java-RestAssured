@@ -1,9 +1,18 @@
 package com.AssureRestTest.api.AssureRestTest.dom;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
+
+    @JsonAlias("first_name")
     private String name;
     private String job;
     private String email;
+    @JsonAlias("last_name")
+    private String lastName;
+
 
     public User(){}
 
@@ -17,6 +26,8 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {this.name = name;}
+
     public String getJob() {
         return job;
     }
@@ -26,4 +37,10 @@ public class User {
     }
 
     public void setEmail(String email) {this.email = email;}
+
+    public void setJob(String job) { this.job = job; }
+
+    public String getLastName() { return lastName;}
+
+    public void setLastName(String lastName) {this.lastName = lastName;}
 }
