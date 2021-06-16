@@ -1,7 +1,5 @@
 package com.AssureRestTest.api.AssureRestTest.dom;
 
-import org.junit.jupiter.api.BeforeEach;
-
 public class User {
     private String name;
     private String job;

@@ -1,22 +1,14 @@
 package com.AssureRestTest.api.AssureRestTest.test;
 
 import com.AssureRestTest.api.AssureRestTest.dom.User;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
-public class RegisterTest {
-    String basePath = "https://reqres.in/api";
-
-    @BeforeTestClass
-    public static void setup(){
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-    }
+public class RegisterTest extends BaseTest {
 
     @Test
     public void testNotRegisterWhenPasswordIsMissing(){

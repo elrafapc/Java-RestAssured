@@ -1,26 +1,17 @@
 package com.AssureRestTest.api.AssureRestTest.test;
 
 import com.AssureRestTest.api.AssureRestTest.dom.User;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @SpringBootTest
-class UserTest {
-
-    String basePath = "https://reqres.in/api";
-
-    @BeforeTestClass
-    public static void setup(){
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-    }
+class UserTest extends BaseTest {
 
     @Test
     public void GETListDataUser() {
