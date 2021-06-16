@@ -11,7 +11,5 @@ public class BaseTest {
     @BeforeTestClass
     public static void setup(){
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.requestSpecification = new RequestSpecBuilder().
-                setContentType(ContentType.JSON).build();
     }
 }

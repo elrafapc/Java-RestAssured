@@ -13,12 +13,14 @@ import static org.hamcrest.Matchers.notNullValue;
 @SpringBootTest
 class UserTest extends BaseTest {
 
+    private static final String USER_ENDPOINT = "/users";
+
     @Test
     public void GETListDataUser() {
         given().
             params("page","2").
         when().
-            get(basePath+"/users").
+            get(basePath + USER_ENDPOINT).
         then().
             statusCode(200).
             body("data", is(notNullValue())).
@@ -31,9 +33,10 @@ class UserTest extends BaseTest {
         User user = new User("Rafael","Eng Test","mail@mail.com");
 
         given().
+            contentType(ContentType.JSON).
             body(user).
         when().
-            post(basePath+"/users").
+            post(basePath + USER_ENDPOINT).
         then().
             statusCode(HttpStatus.SC_CREATED).
             body("name",is("Rafael"));
