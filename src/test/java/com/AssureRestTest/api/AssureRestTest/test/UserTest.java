@@ -74,8 +74,8 @@ class UserTest extends BaseTest {
             body().jsonPath().getObject("data",User.class);
 
         assertThat(user.getEmail(),containsString("@reqres.in"));
-        assertThat(user.getName(),containsString("Janet"));
-        assertThat(user.getLastName(),containsString("Weaver"));
+        assertThat(user.getName(),is("Janet"));
+        assertThat(user.getLastName(),is("Weaver"));
     }
 
 
