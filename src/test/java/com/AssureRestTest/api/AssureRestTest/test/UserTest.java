@@ -41,4 +41,19 @@ class UserTest extends BaseTest {
             statusCode(HttpStatus.SC_CREATED).
             body("name",is("Rafael"));
     }
+
+    @Test
+    public void testBodyItemsEqualsPerPage() {
+        given().
+            params("page","2").
+        when().
+            get(basePath + USER_ENDPOINT).
+        then().
+            statusCode(200).
+            body(
+            "page", is(2),
+        "data.size()", is(6),
+                "data.findAll{ it.avatar.startsWith('https://reqres.in')}.size()", is(6)
+            );
+    }
 }
