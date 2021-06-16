@@ -16,7 +16,7 @@ class UserTest extends BaseTest {
     private static final String USER_ENDPOINT = "/users";
 
     @Test
-    public void GETListDataUser() {
+    public void     getListDataUser() {
         given().
             params("page","2").
         when().
@@ -29,7 +29,7 @@ class UserTest extends BaseTest {
     }
 
     @Test
-    public void POSTAddUser(){
+    public void postAddUser(){
         User user = new User("Rafael","Eng Test","mail@mail.com");
 
         given().
@@ -44,16 +44,31 @@ class UserTest extends BaseTest {
 
     @Test
     public void testBodyItemsEqualsPerPage() {
+        int page = 2;
+        int expectedPerPage = getExpectedPerPage(page);
+
         given().
-            params("page","2").
+            params("page",page).
         when().
             get(basePath + USER_ENDPOINT).
         then().
             statusCode(200).
             body(
-            "page", is(2),
-        "data.size()", is(6),
-                "data.findAll{ it.avatar.startsWith('https://reqres.in')}.size()", is(6)
+            "page", is(page),
+        "data.size()", is(expectedPerPage),
+                "data.findAll{ it.avatar.startsWith('https://reqres.in')}.size()", is(expectedPerPage)
             );
+    }
+
+    private int getExpectedPerPage(int page) {
+        int expectedPerPage = given().
+                param("page",page).
+            when().
+                get(basePath + USER_ENDPOINT).
+            then().
+                statusCode(HttpStatus.SC_OK).
+            extract().
+                path("per_page");
+        return expectedPerPage;
     }
 }
