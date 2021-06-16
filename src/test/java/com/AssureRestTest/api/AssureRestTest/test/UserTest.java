@@ -31,7 +31,6 @@ class UserTest extends BaseTest {
         User user = new User("Rafael","Eng Test","mail@mail.com");
 
         given().
-            contentType(ContentType.JSON).
             body(user).
         when().
             post(basePath+"/users").
